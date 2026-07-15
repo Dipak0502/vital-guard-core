@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppSosRouteImport } from './routes/_authenticated/app.sos'
 import { Route as AuthenticatedAppRemindersRouteImport } from './routes/_authenticated/app.reminders'
 import { Route as AuthenticatedAppQrRouteImport } from './routes/_authenticated/app.qr'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
@@ -36,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/app/',
   path: '/app/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppSosRoute = AuthenticatedAppSosRouteImport.update({
+  id: '/app/sos',
+  path: '/app/sos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAppRemindersRoute =
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/qr': typeof AuthenticatedAppQrRoute
   '/app/reminders': typeof AuthenticatedAppRemindersRoute
+  '/app/sos': typeof AuthenticatedAppSosRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/qr': typeof AuthenticatedAppQrRoute
   '/app/reminders': typeof AuthenticatedAppRemindersRoute
+  '/app/sos': typeof AuthenticatedAppSosRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/qr': typeof AuthenticatedAppQrRoute
   '/_authenticated/app/reminders': typeof AuthenticatedAppRemindersRoute
+  '/_authenticated/app/sos': typeof AuthenticatedAppSosRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/qr'
     | '/app/reminders'
+    | '/app/sos'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/qr'
     | '/app/reminders'
+    | '/app/sos'
     | '/app'
   id:
     | '__root__'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/profile'
     | '/_authenticated/app/qr'
     | '/_authenticated/app/reminders'
+    | '/_authenticated/app/sos'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -166,6 +178,13 @@ declare module '@tanstack/react-router' {
       path: '/app'
       fullPath: '/app/'
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/sos': {
+      id: '/_authenticated/app/sos'
+      path: '/app/sos'
+      fullPath: '/app/sos'
+      preLoaderRoute: typeof AuthenticatedAppSosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app/reminders': {
@@ -212,6 +231,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppQrRoute: typeof AuthenticatedAppQrRoute
   AuthenticatedAppRemindersRoute: typeof AuthenticatedAppRemindersRoute
+  AuthenticatedAppSosRoute: typeof AuthenticatedAppSosRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
@@ -221,6 +241,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppQrRoute: AuthenticatedAppQrRoute,
   AuthenticatedAppRemindersRoute: AuthenticatedAppRemindersRoute,
+  AuthenticatedAppSosRoute: AuthenticatedAppSosRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
