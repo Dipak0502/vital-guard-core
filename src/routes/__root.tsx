@@ -77,14 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "LifeVault — Emergency Medical Profile & QR" },
+      { name: "description", content: "Store your medical info securely. Doctors and responders scan your LifeVault QR to see blood group, allergies, medications and emergency contacts instantly." },
+      { name: "author", content: "LifeVault" },
+      { property: "og:title", content: "LifeVault — Emergency Medical Profile & QR" },
+      { property: "og:description", content: "Instant access to life-saving medical info in an emergency." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
