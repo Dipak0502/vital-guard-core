@@ -80,12 +80,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "LifeVault — Emergency Medical Profile & QR" },
-      { name: "description", content: "Store your medical info securely. Doctors and responders scan your LifeVault QR to see blood group, allergies, medications and emergency contacts instantly." },
+      { name: "description", content: "Store medical info securely. Doctors scan your QR to see blood group, allergies, medications and emergency contacts instantly." },
       { name: "author", content: "LifeVault" },
       { property: "og:title", content: "LifeVault — Emergency Medical Profile & QR" },
-      { property: "og:description", content: "Instant access to life-saving medical info in an emergency." },
+      { property: "og:description", content: "Store medical info securely. Doctors scan your QR to see blood group, allergies, medications and emergency contacts instantly." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "LifeVault — Emergency Medical Profile & QR" },
+      { name: "twitter:description", content: "Store medical info securely. Doctors scan your QR to see blood group, allergies, medications and emergency contacts instantly." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a80a25ea-6b37-4874-a821-9c63220744c4" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a80a25ea-6b37-4874-a821-9c63220744c4" },
     ],
     links: [
       {
