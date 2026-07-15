@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppRemindersRouteImport } from './routes/_authenticated/app.reminders'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
 import { Route as AuthenticatedAppFamilyRouteImport } from './routes/_authenticated/app.family'
 import { Route as AuthenticatedAppDocumentsRouteImport } from './routes/_authenticated/app.documents'
@@ -36,6 +37,12 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/app/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAppRemindersRoute =
+  AuthenticatedAppRemindersRouteImport.update({
+    id: '/app/reminders',
+    path: '/app/reminders',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
   id: '/app/profile',
   path: '/app/profile',
@@ -59,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/family': typeof AuthenticatedAppFamilyRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/reminders': typeof AuthenticatedAppRemindersRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -67,6 +75,7 @@ export interface FileRoutesByTo {
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/family': typeof AuthenticatedAppFamilyRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/reminders': typeof AuthenticatedAppRemindersRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -77,6 +86,7 @@ export interface FileRoutesById {
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/_authenticated/app/family': typeof AuthenticatedAppFamilyRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
+  '/_authenticated/app/reminders': typeof AuthenticatedAppRemindersRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,9 +97,17 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/family'
     | '/app/profile'
+    | '/app/reminders'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app/documents' | '/app/family' | '/app/profile' | '/app'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/documents'
+    | '/app/family'
+    | '/app/profile'
+    | '/app/reminders'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -98,6 +116,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/documents'
     | '/_authenticated/app/family'
     | '/_authenticated/app/profile'
+    | '/_authenticated/app/reminders'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -137,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app/reminders': {
+      id: '/_authenticated/app/reminders'
+      path: '/app/reminders'
+      fullPath: '/app/reminders'
+      preLoaderRoute: typeof AuthenticatedAppRemindersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/app/profile': {
       id: '/_authenticated/app/profile'
       path: '/app/profile'
@@ -165,6 +191,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppDocumentsRoute: typeof AuthenticatedAppDocumentsRoute
   AuthenticatedAppFamilyRoute: typeof AuthenticatedAppFamilyRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
+  AuthenticatedAppRemindersRoute: typeof AuthenticatedAppRemindersRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
@@ -172,6 +199,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppDocumentsRoute: AuthenticatedAppDocumentsRoute,
   AuthenticatedAppFamilyRoute: AuthenticatedAppFamilyRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
+  AuthenticatedAppRemindersRoute: AuthenticatedAppRemindersRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 
