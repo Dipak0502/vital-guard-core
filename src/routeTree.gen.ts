@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ECodeRouteImport } from './routes/e.$code'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAppSosRouteImport } from './routes/_authenticated/app.sos'
 import { Route as AuthenticatedAppRemindersRouteImport } from './routes/_authenticated/app.reminders'
@@ -32,6 +33,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ECodeRoute = ECodeRouteImport.update({
+  id: '/e/$code',
+  path: '/e/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
@@ -75,6 +81,7 @@ const AuthenticatedAppDocumentsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/e/$code': typeof ECodeRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/family': typeof AuthenticatedAppFamilyRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/e/$code': typeof ECodeRoute
   '/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/app/family': typeof AuthenticatedAppFamilyRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/e/$code': typeof ECodeRoute
   '/_authenticated/app/documents': typeof AuthenticatedAppDocumentsRoute
   '/_authenticated/app/family': typeof AuthenticatedAppFamilyRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/e/$code'
     | '/app/documents'
     | '/app/family'
     | '/app/profile'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/e/$code'
     | '/app/documents'
     | '/app/family'
     | '/app/profile'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/e/$code'
     | '/_authenticated/app/documents'
     | '/_authenticated/app/family'
     | '/_authenticated/app/profile'
@@ -148,6 +160,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ECodeRoute: typeof ECodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/e/$code': {
+      id: '/e/$code'
+      path: '/e/$code'
+      fullPath: '/e/$code'
+      preLoaderRoute: typeof ECodeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app/': {
@@ -252,6 +272,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ECodeRoute: ECodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
