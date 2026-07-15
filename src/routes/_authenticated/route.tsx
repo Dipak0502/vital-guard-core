@@ -14,14 +14,15 @@ export const Route = createFileRoute("/_authenticated")({
   component: AppShell,
 });
 
-const nav = [
+type NavItem = { to: string; label: string; icon: any; exact?: boolean };
+const nav: NavItem[] = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/app/profile", label: "My Profile", icon: User },
   { to: "/app/family", label: "Family", icon: Users },
   { to: "/app/documents", label: "Documents", icon: FileText },
   { to: "/app/reminders", label: "Reminders", icon: Bell },
   { to: "/app/qr", label: "Emergency QR", icon: QrCode },
-] as const;
+];
 
 function AppShell() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ function AppShell() {
             return (
               <Link
                 key={n.to}
-                to={n.to}
+                to={n.to as any}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   active ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                 }`}
@@ -60,7 +61,7 @@ function AppShell() {
             );
           })}
           <Link
-            to="/app/sos"
+            to={"/app/sos" as any}
             className="mt-4 flex items-center gap-3 rounded-lg bg-destructive px-3 py-2 text-sm font-semibold text-destructive-foreground shadow-sm hover:opacity-95"
           >
             <Siren className="h-4 w-4" /> SOS
