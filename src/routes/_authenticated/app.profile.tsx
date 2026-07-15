@@ -70,7 +70,7 @@ function ProfilePage() {
   const addContact = useMutation({
     mutationFn: async () => {
       const { error } = await supabase.from("emergency_contacts").insert({
-        owner_id: uid, subject_type: "self", subject_id: uid,
+        owner_id: uid!, subject_type: "self", subject_id: uid!,
         name: "New contact", relation: "", phone: "",
       });
       if (error) throw error;
