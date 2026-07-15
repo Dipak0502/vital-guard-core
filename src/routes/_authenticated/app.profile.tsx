@@ -19,7 +19,10 @@ export const Route = createFileRoute("/_authenticated/app/profile")({
 
 function ProfilePage() {
   const qc = useQueryClient();
-  const { data: uid } = useQuery({ queryKey: ["uid"], queryFn: async () => (await supabase.auth.getUser()).data.user!.id });
+  const { data: uid } = useQuery<string>({
+    queryKey: ["uid"],
+    queryFn: async () => (await supabase.auth.getUser()).data.user!.id,
+  });
 
   const { data } = useQuery({
     queryKey: ["profile-full", uid],
