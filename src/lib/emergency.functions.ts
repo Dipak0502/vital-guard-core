@@ -1,5 +1,24 @@
 import { createServerFn } from "@tanstack/react-start";
 
+export type EmergencyContact = {
+  name: string;
+  relation: string | null;
+  phone: string;
+  is_primary: boolean;
+};
+
+export type EmergencyProfile = {
+  code: string;
+  subject: Record<string, string | null> | null;
+  blood_group: string | null;
+  allergies: string | null;
+  conditions: string | null;
+  current_medications: string | null;
+  organ_donor: boolean | null;
+  insurance: { provider: string | null; policy: string | null; expiry: string | null } | null;
+  emergency_contacts: EmergencyContact[];
+};
+
 /**
  * Public lookup for an emergency profile by code.
  *
@@ -27,7 +46,5 @@ export const getEmergencyProfile = createServerFn({ method: "POST" })
       _code: data.code,
     });
     if (error) throw error;
-    // RPC returns JSONB (or null). Re-serialize to a plain JSON string so the
-    // server-fn serializer stays happy regardless of the payload's shape.
-    return { profile: profile == null ? null : JSON.parse(JSON.stringify(profile)) as unknown };
+    return (profile ?? null) as EmergencyProfile | null;
   });
