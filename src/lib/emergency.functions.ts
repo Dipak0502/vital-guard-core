@@ -27,5 +27,5 @@ export const getEmergencyProfile = createServerFn({ method: "POST" })
       _code: data.code,
     });
     if (error) throw error;
-    return profile as unknown;
+    return (profile ?? null) as Record<string, unknown> | null;
   });
