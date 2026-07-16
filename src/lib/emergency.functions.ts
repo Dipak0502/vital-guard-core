@@ -27,5 +27,7 @@ export const getEmergencyProfile = createServerFn({ method: "POST" })
       _code: data.code,
     });
     if (error) throw error;
-    return (profile ?? null) as Record<string, unknown> | null;
+    // RPC returns JSONB (or null). Re-serialize to a plain JSON string so the
+    // server-fn serializer stays happy regardless of the payload's shape.
+    return { profile: profile == null ? null : JSON.parse(JSON.stringify(profile)) as unknown };
   });
