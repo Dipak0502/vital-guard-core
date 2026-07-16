@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { getEmergencyProfile } from "@/lib/emergency.functions";
 import { HeartPulse, ShieldAlert, PhoneCall, Droplet, Pill, AlertTriangle, User } from "lucide-react";
 
 export const Route = createFileRoute("/e/$code")({
@@ -16,13 +17,10 @@ export const Route = createFileRoute("/e/$code")({
 
 function EmergencyView() {
   const { code } = Route.useParams();
+  const fetchProfile = useServerFn(getEmergencyProfile);
   const { data, isLoading } = useQuery({
     queryKey: ["emergency", code],
-    queryFn: async () => {
-      const { data, error } = await supabase.rpc("get_emergency_profile", { _code: code });
-      if (error) throw error;
-      return data as any;
-    },
+    queryFn: () => fetchProfile({ data: { code } }) as Promise<any>,
   });
 
   if (isLoading) return <div className="flex min-h-screen items-center justify-center text-muted-foreground">Loading…</div>;
